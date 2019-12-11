@@ -17,7 +17,7 @@
       url: "{{heat_endpoint}}"
       method: POST
       headers:
-        X-Auth-Token: {{heat_token}}
+        X-Auth-Token: "{{heat_token}}"
         Content-Type: "application/json"
         Accept: "application/json"
       body: '{"status": "FAILURE"}'
