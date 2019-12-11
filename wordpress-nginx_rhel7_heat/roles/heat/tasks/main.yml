@@ -1,0 +1,26 @@
+---
+- name: Signal Heat about playbook completition
+  block:
+    uri:
+      url: {{heat_endpoint}}
+      method: POST
+      headers:
+        X-Auth-Token: {{heat_token}}
+        Content-Type: "application/json"
+        Accept: "application/json"
+      body: '{"status": "SUCCESS"}'
+      body_format: json
+      force_basic_auth: yes
+      status_code: 200
+  rescue:
+    uri:
+      url: {{heat_endpoint}}
+      method: POST
+      headers:
+        X-Auth-Token: {{heat_token}}
+        Content-Type: "application/json"
+        Accept: "application/json"
+      body: '{"status": "FAILURE"}'
+      body_format: json
+      force_basic_auth: yes
+      status_code: 200
