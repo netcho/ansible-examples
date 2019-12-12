@@ -3,3 +3,5 @@
 
 - name: restart mariadb
   service: name=mariadb state=restarted
+- name: reset SELinux context
+  shell: restorecon -v /var/log/mysqld.log  
