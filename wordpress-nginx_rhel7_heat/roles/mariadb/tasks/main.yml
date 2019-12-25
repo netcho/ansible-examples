@@ -19,8 +19,10 @@
 
 - name: Create MariaDB log file
   file: path=/var/log/mysqld.log state=touch owner=mysql group=mysql mode=0775
-  notify:
-  - reset SELinux context  
+  
+- name: Reset SELinux context of MariaDB log file
+  shell: 
+    cmd: restorecon -v /var/log/mysqld.log 
 
 - name: Start MariaDB Service
   service: name=mariadb state=started enabled=yes
