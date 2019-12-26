@@ -14,7 +14,7 @@
       - php-xml
     state: present
     enablerepo:
-      - remi-73
+      - remi-php73
 
 - name: Disable default pool
   command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/www.disabled creates=/etc/php-fpm.d/www.disabled
