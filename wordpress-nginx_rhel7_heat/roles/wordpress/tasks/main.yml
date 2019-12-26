@@ -7,10 +7,10 @@
   
 - name: Download WordPress
   get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/srv/wordpress-{{ wp_version }}.tar.gz
-           sha256sum="{{ wp_sha256sum }}"
+           checksum=sha1:https://wordpress.org/wordpress-{{ wp_version }}.tar.gz.sha1
 
 - name: Extract archive
-  unarchive: dest=/srv src=/srv/wordpress-{{ wp_version }}.tar.gz mode=preserve owner=wordpress
+  unarchive: dest=/srv remote_src=yes src=/srv/wordpress-{{ wp_version }}.tar.gz mode=preserve owner=wordpress
 
 - name: Fetch random salts for WordPress config
   local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
