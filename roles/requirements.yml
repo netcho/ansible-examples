@@ -1,4 +1,3 @@
 ---
-collections:
-- geerlingguy.repo-remi
-- geerlingguy.repo-epel
+- src: geerlingguy.repo-remi
+- src: geerlingguy.repo-epel
