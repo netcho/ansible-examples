@@ -1,16 +1,16 @@
 ---
-- name: Download WordPress
-  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/srv/wordpress-{{ wp_version }}.tar.gz
-           sha256sum="{{ wp_sha256sum }}"
-
-- name: Extract archive
-  command: chdir=/srv/ /bin/tar xvf wordpress-{{ wp_version }}.tar.gz creates=/srv/wordpress
-
 - name: Add group "wordpress"
   group: name=wordpress
 
 - name: Add user "wordpress"
   user: name=wordpress group=wordpress home=/srv/wordpress/
+  
+- name: Download WordPress
+  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/srv/wordpress-{{ wp_version }}.tar.gz
+           sha256sum="{{ wp_sha256sum }}"
+
+- name: Extract archive
+  unarchive: dest=/srv src=/srv/wordpress-{{ wp_version }}.tar.gz mode=preserve owner=wordpress
 
 - name: Fetch random salts for WordPress config
   local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
@@ -30,7 +30,7 @@
   file: path=/srv/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes
 
 - name: install SEManage
-  yum: pkg=policycoreutils-python state=present
+  yum: name=policycoreutils-python state=present
 
 - name: set the SELinux policy for the Wordpress directory
   command: semanage fcontext -a -t httpd_sys_content_t "/srv/wordpress(/.*)?"
