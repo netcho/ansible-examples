@@ -6,6 +6,8 @@
 
   roles:
     - common
+    - geerlingguy.repo-epel
+    - geerlingguy.repo-remi
     - mariadb
     - nginx
     - php-fpm
